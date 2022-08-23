@@ -110,7 +110,7 @@ function gen_slides(group_name, filter_string, cards_per_slide) {
             slides.push([]);
         }
         slides[slides.length - 1].push(course);
-    });
+    }); 
 
     return slides.map((slide, idx) => (
         <div class={`carousel-item ${idx === 0 ? "active" : ""}`}>
@@ -191,7 +191,7 @@ function gen_category(category) {
     return (
         <div class="col">
             <img class="d-block w-75 m-auto" src={category.img} alt={category.name}></img>
-            <h3 class="fs-6 fw-bold">${category.name}</h3>
+            <h3 class="fs-6 fw-bold">{category.name}</h3>
         </div>
     )
 }
