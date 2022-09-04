@@ -1,6 +1,6 @@
 import "./SearchBar.sass";
 import React from "react";
-import udemy_logo from "../media/logo-udemy.svg"
+import udemy_logo from "./media/logo-udemy.svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 

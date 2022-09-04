@@ -1,10 +1,10 @@
 import React from "react";
 import "./CoursesSlider.sass";
-import {db} from "../data/courses_groups";
 import Nav from "react-bootstrap/Nav";
 import Carousel from 'react-bootstrap/Carousel';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+const CoursesContext = React.createContext({});
 
 const BREAKING_POINTS = {
     _0_xs: 0,
@@ -33,12 +33,14 @@ function calc_cards_per_slide_value() {
 
 function GroupsNav({groups, selectedGroupSetter}) {
 
+    const coursesDb = React.useContext(CoursesContext);
+
     return (
         <Nav variant="tabs" className="container mb-3" defaultActiveKey={groups[0]}>
             {
                 groups.map((group, idx) => (
                     <Nav.Item key={idx} id={group} onClick={()=>selectedGroupSetter(group)}>
-                        <Nav.Link className="text-secondary" eventKey={group}>{db[group].name}</Nav.Link>
+                        <Nav.Link className="text-secondary" eventKey={group}>{coursesDb[group].name}</Nav.Link>
                     </Nav.Item>
                 ))
             }
@@ -48,7 +50,8 @@ function GroupsNav({groups, selectedGroupSetter}) {
 
 function GroupInfo({groupName}) {
 
-    const group = db[groupName];
+    const coursesDb = React.useContext(CoursesContext);
+    const group = coursesDb[groupName];
 
     return (
         <>
@@ -107,7 +110,8 @@ function CourseCard({idx, course, cardsPerSlide}) {
 
 function CoursesCarousel({groupName, filterString, cardsPerSlide}) {
 
-    const group = db[groupName];
+    const coursesDb = React.useContext(CoursesContext);
+    const group = coursesDb[groupName];
     const courses = group.courses.filter(course => course.title.toLowerCase().includes(filterString));
     const [index, setIndex] = React.useState(0);
 
@@ -145,12 +149,12 @@ function CoursesCarousel({groupName, filterString, cardsPerSlide}) {
     )   
 }
 
-function CoursesSlider({filterString}) {
+function CoursesSlider({filterString, coursesDb}) {
 
-    const groups = Object.keys(db);
+    const groups = Object.keys(coursesDb);
     const [selected_group, set_selected_group] = React.useState(groups[0]);
     const [cards_per_slide, set_cards_per_slide] = React.useState(calc_cards_per_slide_value());
-
+    
     React.useEffect(() => {
         window.addEventListener("resize", (e) => {
             set_cards_per_slide(calc_cards_per_slide_value());
@@ -159,14 +163,16 @@ function CoursesSlider({filterString}) {
 
     return (
         <>
-            <GroupsNav groups={groups} selectedGroupSetter={set_selected_group} />
+            <CoursesContext.Provider value={coursesDb}>
+                <GroupsNav groups={groups} selectedGroupSetter={set_selected_group} />
 
-            <section className="container mb-4">
-                <div className="selected_group">
-                    <GroupInfo groupName={selected_group} />
-                    <CoursesCarousel groupName={selected_group} filterString={filterString} cardsPerSlide={cards_per_slide} />
-                </div>
-            </section>
+                <section className="container mb-4">
+                    <div className="selected_group">
+                        <GroupInfo groupName={selected_group} />
+                        <CoursesCarousel groupName={selected_group} filterString={filterString} cardsPerSlide={cards_per_slide} />
+                    </div>
+                </section>
+            </CoursesContext.Provider>
         </>
     )
 }

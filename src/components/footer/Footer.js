@@ -1,5 +1,5 @@
 import "./Footer.sass";
-import udemy_logo_inv from "../media/logo-udemy-inverted.svg";
+import udemy_logo_inv from "./media/logo-udemy-inverted.svg";
 
 export default function Footer(){
     return (
