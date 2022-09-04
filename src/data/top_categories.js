@@ -1,4 +1,4 @@
-const top_categories = {
+export const top_categories = {
     "design": {
         "name" : "Design",
         "img": "https://s.udemycdn.com/home/top-categories/lohp-category-design-v2.jpg"
