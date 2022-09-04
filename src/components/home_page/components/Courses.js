@@ -26,7 +26,7 @@ export default function Courses({filterString}){
                 <h2>A broad selection of courses</h2>
                 <p>Choose from 185,000 online video courses with new additions published every month</p>
             </Container>
-
+            
             {
                 data_is_fetched
                     ? <CoursesSlider filterString={filterString} coursesDb={courses_db}/>

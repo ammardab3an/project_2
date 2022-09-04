@@ -6,8 +6,10 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 export default function LoadingSpinner(){
 
     return (
-        <Container>
-            <FontAwesomeIcon className="w-100 d-block spinner" icon={solid("gear")} />
+        <Container className="w-100">
+            <Container className="w-50-px">
+                <FontAwesomeIcon className="spinner" icon={solid("gear")} />
+            </Container>
         </Container>
     )
 }
