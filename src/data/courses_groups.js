@@ -1,4 +1,4 @@
-const db = {
+export const db = {
     "c_python": {
         "name": "Python",
         "title": "Top courses in Python",
