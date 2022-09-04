@@ -1,9 +1,8 @@
 import './App.sass';
 import React from 'react';
-import SearchBar from './components/SearchBar';
-import Landing from './components/Landing';
-import Courses from './components/Courses';
-import Footer from './components/Footer';
+import SearchBar from './components/search_bar/SearchBar';
+import HomePage from './components/home_page/HomePage';
+import Footer from './components/footer/Footer'
 
 function App() {
 
@@ -12,8 +11,7 @@ function App() {
     return (
         <>
             <SearchBar filterStringSetter={set_filter_string}/>
-            <Landing />
-            <Courses filterString={filter_string}/>
+            <HomePage filterString={filter_string}/>
             <Footer />
         </>
     );
