@@ -3,16 +3,23 @@ import React from "react";
 import udemy_logo from "./media/logo-udemy.svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { createSearchParams } from "react-router-dom";
 
-export default function SearchBar({filterStringSetter}) {
+export default function SearchBar() {
 
+    const navigate = useNavigate();
     const search_submit_btn_ref = React.createRef();
     const search_input_ref = React.createRef();
 
     const handel_search_btn_onClick = (e) => {
         e.preventDefault();
-        filterStringSetter(search_input_ref.current.value.trim().toLowerCase());
+        const search_s = search_input_ref.current.value.trim().toLowerCase();
+
+        navigate({
+            pathname: "/",
+            search: search_s.length ? `?${createSearchParams({search: search_s})}` : ""
+        })
     }
     
     const handel_input_keydown = (e) => {
