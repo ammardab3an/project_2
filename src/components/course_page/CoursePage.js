@@ -12,57 +12,48 @@ import Instructors from "./components/Instructors";
 import StudentFeedback from "./components/StudentFeedback";
 import Reviews from "./components/Reviews";
 import FloatingCard from "./components/FloatingCard";
+import { CoursesContext } from "../CoursesContext";
 
 export default function CoursePage(){
 
     const {courseId} = useParams();
-    const [course_db, set_course_db] = React.useState({});
-    const [data_is_fetched, set_data_is_fetched] = React.useState(false);
-
-    React.useEffect(()=>{
-        fetch("https://api.npoint.io/c6f4ed954b5aad734f00")
-            .then(res => res.json())
-            .then(res => fetch(`https://api.npoint.io/${res[courseId]}`))
-            .then(res => res.json())
-            .then(res => {
-                set_data_is_fetched(true);
-                set_course_db(res);
-            });
-    }, [courseId]);
     
     return (
+        <CoursesContext.Consumer>
+            {
+                ({queryCourse}) => {
 
-        !data_is_fetched ? <LoadingSpinner /> :
+                    const courseDb = queryCourse(courseId);
 
-        <>
+                    if(!courseDb){
+                        return (<LoadingSpinner />);
+                    }
+                    else{
+                        return (
+                            <>
+                                <CourseLanding courseData={courseDb}/>
+                                {/* <FloatingCard courseData={courseDb}/> */}
             
-            <CourseLanding courseData={course_db}/>
-            {/* <FloatingCard courseData={course_db}/> */}
-
-            <Container>
-                <Row>
-                    <Col lg={1} />
-                    <Col xs={12} lg={7}>
-
-                    <WhatToLearn courseData={course_db} />
-
-                    <CourseContent sectionsData={course_db.curriculum_context.data.sections} />
-                    
-                    <Requirements requirementsData={course_db.requirements_data} />
-                    
-                    <Description description={course_db.description}/>
-                    
-                    <Instructors instructorsData={course_db.visible_instructors} />
-
-                    <StudentFeedback courseRating={course_db.rating} numReviews={course_db.num_reviews} feedbackData={course_db.rating_distribution}/>
-
-                    <Reviews reviewsData={course_db.users_reviews} />
-
-                    </Col>
-                    
-                    <Col lg={4} />
-                </Row>
-            </Container>
-        </>
+                                <Container>
+                                    <Row>
+                                        <Col lg={1} />
+                                        <Col xs={12} lg={7}>
+                                        <WhatToLearn courseData={courseDb} />
+                                        <CourseContent sectionsData={courseDb.curriculum_context.data.sections} />
+                                        <Requirements requirementsData={courseDb.requirements_data} />
+                                        <Description description={courseDb.description}/>
+                                        <Instructors instructorsData={courseDb.visible_instructors} />
+                                        <StudentFeedback courseRating={courseDb.rating} numReviews={courseDb.num_reviews} feedbackData={courseDb.rating_distribution}/>
+                                        <Reviews reviewsData={courseDb.users_reviews} />
+                                        </Col>
+                                        <Col lg={4} />
+                                    </Row>
+                                </Container>
+                            </>
+                        )
+                    }
+                }
+            }
+        </CoursesContext.Consumer>
     )
 }

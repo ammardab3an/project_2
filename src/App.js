@@ -5,6 +5,7 @@ import HomePage from './components/home_page/HomePage';
 import Footer from './components/footer/Footer'
 import CoursePage from './components/course_page/CoursePage';
 import { Routes, Route } from 'react-router-dom';
+import { CoursesContext, CoursesProvider } from './components/CoursesContext';
 
 function App() {
 
@@ -13,10 +14,12 @@ function App() {
 
       <SearchBar />
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/course_info/:courseId" element={<CoursePage />} />
-      </Routes>
+      <CoursesProvider>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/course_info/:courseId" element={<CoursePage />} />
+        </Routes>
+      </CoursesProvider>
 
       <Footer />
     </>

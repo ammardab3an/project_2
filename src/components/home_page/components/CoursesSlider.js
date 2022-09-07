@@ -2,8 +2,6 @@ import React from "react";
 import "./CoursesSlider.sass";
 import Nav from "react-bootstrap/Nav";
 import Carousel from 'react-bootstrap/Carousel';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Link } from "react-router-dom";
 import Stars from "./Stars"
 

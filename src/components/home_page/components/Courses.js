@@ -3,20 +3,9 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import CoursesSlider from "./CoursesSlider";
 import LoadingSpinner from "./LoadingSpinner";
+import { CoursesContext } from "../../CoursesContext";
 
-export default function Courses({filterString, coursesDb, dataIsFetched}){
-
-    const [data_is_fetched, set_data_is_fetched] = React.useState(false);
-    const [courses_db, set_courses_db] = React.useState({});
-    
-    React.useEffect(()=>{
-        fetch("https://api.npoint.io/6890a64db08fb966df1a")
-            .then((res) => res.json())
-            .then((res) => {
-                set_courses_db(res);
-                set_data_is_fetched(true);
-            });
-    }, []);
+export default function Courses({filterString}){
 
     return (
 
@@ -27,11 +16,15 @@ export default function Courses({filterString, coursesDb, dataIsFetched}){
                 <p>Choose from 185,000 online video courses with new additions published every month</p>
             </Container>
             
-            {
-                data_is_fetched
-                    ? <CoursesSlider filterString={filterString} coursesDb={courses_db}/>
-                    : <LoadingSpinner />
-            }       
+            <CoursesContext.Consumer>
+                {
+                    ({coursesList}) => (
+                        coursesList
+                            ? <CoursesSlider filterString={filterString} coursesDb={coursesList}/>
+                            : <LoadingSpinner />
+                    )
+                }       
+            </CoursesContext.Consumer>
         </main>
     )
 }
