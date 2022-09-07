@@ -15,8 +15,8 @@ export default function CourseLanding({courseData}){
             <Container>
 
                 <Row>
-                    <Col xs={1}/>
-                    <Col xs={7}>
+                    <Col lg={1}/>
+                    <Col xs={12} lg={7}>
                         <Breadcrumb className="breadcrumb">
                             <Breadcrumb.Item linkAs={Link} linkProps={{to: "/"}}>Home</Breadcrumb.Item>
                             <Breadcrumb.Item linkAs={HashLink} linkProps={{to: "/#courses"}}>Courses</Breadcrumb.Item>
@@ -25,7 +25,7 @@ export default function CourseLanding({courseData}){
 
                         <h2 className="course-title">{courseData.title}</h2>
                         <h4 className="course-headline">{courseData.headline}</h4>
-                        <p><Stars color="#f3ca8c" showRating={true} rating={courseData.rating} /> ({courseData.num_reviews} ratings) {courseData.num_subscribers} students</p>
+                        <p><Stars color="#f3ca8c" showRating rating={courseData.rating} /> ({courseData.num_reviews} ratings) {courseData.num_subscribers} students</p>
                         
                         <p>Created by {courseData.visible_instructors.map((e, idx) => <span key={idx}> <HashLink to="#">{e.title}</HashLink> </span>)}</p>
 
@@ -37,7 +37,7 @@ export default function CourseLanding({courseData}){
 
                     </Col>
                     
-                    <Col xs={4} />
+                    <Col lg={4} />
                 </Row>
             </Container>
         </div>

@@ -11,7 +11,7 @@ function Review({review}){
     return (
         <div className="user-review">
 
-            <div className="initials-col">
+            <div className="initials-col d-none d-md-block">
                 <div className="initials">
                     <span>
                         {review.user.initials}
@@ -22,7 +22,7 @@ function Review({review}){
             <div>
                 <h5 className="user-name">{review.user.public_display_name}</h5>
                 <div className="user-stars">
-                    <Stars showRating={false} rating={review.rating} />
+                    <Stars rating={review.rating} />
                 </div>
                 <p className="user-comment">{review.content}</p>
                 <p className="was-review-helpful">Was this review helpful?</p>
@@ -32,7 +32,7 @@ function Review({review}){
                 </div>
 
                 <div className="thumbs-btn">
-                    <FontAwesomeIcon icon={regular("thumbs-down")} />
+                    <FontAwesomeIcon icon={regular("thumbs-down")} style={{transform: "scale(-1, 1)"}} />
                 </div>
 
                 <a href="#" className="report-user">Report</a>

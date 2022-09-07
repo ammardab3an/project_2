@@ -37,12 +37,12 @@ export default function CoursePage(){
         <>
             
             <CourseLanding courseData={course_db}/>
-            <FloatingCard courseData={course_db}/>
+            {/* <FloatingCard courseData={course_db}/> */}
 
             <Container>
                 <Row>
-                    <Col xs={1} />
-                    <Col xs={7}>
+                    <Col lg={1} />
+                    <Col xs={12} lg={7}>
 
                     <WhatToLearn courseData={course_db} />
 
@@ -60,7 +60,7 @@ export default function CoursePage(){
 
                     </Col>
                     
-                    <Col xs={4} />
+                    <Col lg={4} />
                 </Row>
             </Container>
         </>

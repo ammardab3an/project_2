@@ -5,6 +5,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Link } from "react-router-dom";
+import Stars from "./Stars"
 
 const CoursesContext = React.createContext({});
 
@@ -64,50 +65,33 @@ function GroupInfo({groupName}) {
     )
 }
 
-function Stars({rating}) {
-
-    let ret = [];
-    const MAX_NUMBER_OF_STARS = 5;
-    for (let i = 1; i <= MAX_NUMBER_OF_STARS; i++) {
-        if (rating >= i) {
-            ret.push(<FontAwesomeIcon key={i} icon={solid("star")} />)
-        }
-        else if (rating + 0.5 >= i) {
-            ret.push(<FontAwesomeIcon key={i} icon={regular("star-half-stroke")} />)
-        }
-        else {
-            ret.push(<FontAwesomeIcon key={i} icon={regular("star")}/>)
-        }
-    }
-
-    return (
-        <div className="stars">
-            {ret}
-        </div>
-    )
-    
-}
-
 function CourseCard({idx, course, cardsPerSlide}) {
+
     return (
         <div key={idx} className={`col-${12 / cardsPerSlide}`}>
             
-            <Link to={`course_info/${course.id}`}>
+            <Link className={"d-block text-decoration-none"} to={`course_info/${course.id}`}>
                 <figure>
                     <img className="d-block w-100" src={course.image} alt={course.title}></img>
-                    <figcaption>{course.title}</figcaption>
+                    <figcaption className="text-dark">{course.title}</figcaption>
                 </figure>
             </Link>
 
             {
                 course.instructors.map((instructor, idx) =>
-                    <h4 key={idx} className="author">{instructor.name}</h4>
+                    <h5 key={idx} className="author">{instructor.name}</h5>
                 )
             }
 
-            <Stars rating={course.rating} />
+            <p>
+                <Stars showRating rating={course.rating} />
 
-            <h3 className="price">${course.price}</h3>
+                <small className="text-muted">
+                    ({Math.floor(Math.random()*10000)})
+                </small>
+            </p>
+
+            <p className="price">${course.price}</p>
         </div>
     )
 }
