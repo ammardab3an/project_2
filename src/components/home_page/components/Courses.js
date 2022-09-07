@@ -4,16 +4,16 @@ import Container from "react-bootstrap/Container";
 import CoursesSlider from "./CoursesSlider";
 import LoadingSpinner from "./LoadingSpinner";
 
-export default function Courses({filterString}){
+export default function Courses({filterString, coursesDb, dataIsFetched}){
 
     const [data_is_fetched, set_data_is_fetched] = React.useState(false);
     const [courses_db, set_courses_db] = React.useState({});
     
     React.useEffect(()=>{
-        fetch("https://api.jsonbin.io/v3/b/6314926fe13e6063dc9a99c0")
+        fetch("https://api.npoint.io/6890a64db08fb966df1a")
             .then((res) => res.json())
             .then((res) => {
-                set_courses_db(res.record);
+                set_courses_db(res);
                 set_data_is_fetched(true);
             });
     }, []);

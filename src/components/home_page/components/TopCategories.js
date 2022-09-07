@@ -16,10 +16,10 @@ export default function TopCategories(){
     const [top_categories, set_top_categories] = React.useState({});
     
     React.useEffect(()=>{
-        fetch("https://api.jsonbin.io/v3/b/631493295c146d63ca8e10da")
+        fetch("https://api.npoint.io/5d666b620e2b069620a2")
             .then((res) => res.json())
             .then((res) => {
-                set_top_categories(res.record);
+                set_top_categories(res);
                 set_data_is_fetched(true);
             });
     }, []);

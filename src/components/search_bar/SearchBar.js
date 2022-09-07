@@ -3,6 +3,7 @@ import React from "react";
 import udemy_logo from "./media/logo-udemy.svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { Link } from "react-router-dom";
 
 export default function SearchBar({filterStringSetter}) {
 
@@ -25,7 +26,10 @@ export default function SearchBar({filterStringSetter}) {
         <header>
 
             <nav>
-                <img className="logo" src={udemy_logo} alt="logo" />
+
+                <Link to="/" style={{"marginTop": "auto", "marginBottom": "auto"}}>
+                    <img className="logo" src={udemy_logo} alt="logo" />
+                </Link>
 
                 <a href="/categories" className="nav_link">Categories</a>
 

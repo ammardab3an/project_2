@@ -4,6 +4,8 @@ import Nav from "react-bootstrap/Nav";
 import Carousel from 'react-bootstrap/Carousel';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { Link } from "react-router-dom";
+
 const CoursesContext = React.createContext({});
 
 const BREAKING_POINTS = {
@@ -90,10 +92,12 @@ function CourseCard({idx, course, cardsPerSlide}) {
     return (
         <div key={idx} className={`col-${12 / cardsPerSlide}`}>
             
-            <figure>
-                <img className="d-block w-100" src={course.image} alt={course.title}></img>
-                <figcaption>{course.title}</figcaption>
-            </figure>
+            <Link to={`course_info/${course.id}`}>
+                <figure>
+                    <img className="d-block w-100" src={course.image} alt={course.title}></img>
+                    <figcaption>{course.title}</figcaption>
+                </figure>
+            </Link>
 
             {
                 course.instructors.map((instructor, idx) =>
@@ -116,7 +120,6 @@ function CoursesCarousel({groupName, filterString, cardsPerSlide}) {
     const [index, setIndex] = React.useState(0);
 
     const handelSelect = (selectedIndex, e) => {
-        console.log(selectedIndex);
         setIndex(selectedIndex);
     }
 
