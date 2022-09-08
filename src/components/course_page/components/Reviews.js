@@ -49,10 +49,8 @@ export default function Reviews({reviewsData}){
         <div className="users-reviews">
 
             {
-                reviewsData.map((e, idx) => (   
-                    (show_more || idx < MAX_SHOWN_COMMENTS)
-                        ? <Review review={e} />
-                        : <></>
+                reviewsData.slice(0, show_more ? reviewsData.length : MAX_SHOWN_COMMENTS).map((e, idx) => (   
+                    <Review key={idx} review={e} />
                 ))
             }
 

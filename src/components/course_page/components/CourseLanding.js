@@ -3,7 +3,7 @@ import { Container, Breadcrumb, Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { HashLink } from 'react-router-hash-link'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 import Stars from "./Stars"
 

@@ -63,10 +63,10 @@ function GroupInfo({groupName}) {
     )
 }
 
-function CourseCard({idx, course, cardsPerSlide}) {
+function CourseCard({course, cardsPerSlide}) {
 
     return (
-        <div key={idx} className={`col-${12 / cardsPerSlide}`}>
+        <div className={`col-${12 / cardsPerSlide}`}>
             
             <Link className={"d-block text-decoration-none"} to={`course_info/${course.id}`}>
                 <figure>

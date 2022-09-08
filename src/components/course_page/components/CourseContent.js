@@ -6,13 +6,13 @@ import { Row, Col } from "react-bootstrap";
 
 const MAX_SHOWN_SECTIONS = 7;
 
-function CurriculumSection({idx, expand, sectionData}){
+function CurriculumSection({expand, sectionData}){
 
     const [is_expanded, set_is_expanded] = React.useState(false);
     useEffect(()=>set_is_expanded(expand), [expand]);
     
     return (
-        <div key={idx}>
+        <div>
             <div className="section-header">
                 
                 <span className="section-header-title" onClick={()=>set_is_expanded(!is_expanded)}>
@@ -78,11 +78,8 @@ export default function CourseContent({sectionsData}){
             </div>
 
             {
-                sectionsData.sections.map((e, idx) => (
-
-                    (show_more || idx < MAX_SHOWN_SECTIONS)
-                        ? <CurriculumSection expand={expand_all} key={idx} sectionData={e} />
-                        : <></>
+                sectionsData.sections.slice(0, show_more ? sectionsData.sections.length : MAX_SHOWN_SECTIONS).map((e, idx) => (
+                    <CurriculumSection expand={expand_all} key={idx} sectionData={e} />
                 ))
             }
 

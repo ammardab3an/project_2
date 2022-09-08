@@ -3,12 +3,12 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-function InstructorCard({idx, instructor}){
+function InstructorCard({instructor}){
 
     const [show_more, set_show_more] = React.useState(0);
 
     return (
-        <div key={idx} className="instructor-card">
+        <div className="instructor-card">
             <a href="#" className="instructor-title"><h5>{instructor.title}</h5></a>
             <h6 className="job-title">{instructor.job_title}</h6>
             
@@ -42,7 +42,7 @@ export default function Instructors({instructorsData}){
         <div className="instructors">
             <h4>Instructors</h4>
             {
-                instructorsData.map((e, idx) => <InstructorCard idx={idx} instructor={e} />)
+                instructorsData.map((e, idx) => <InstructorCard key={idx} instructor={e} />)
             }
         </div>
     )

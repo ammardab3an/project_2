@@ -62,7 +62,6 @@ export const CoursesProvider = (props) => {
     }
 
     const coursesContext = {
-        coursesDb,
         coursesList,
         topCategories,
         queryCourse

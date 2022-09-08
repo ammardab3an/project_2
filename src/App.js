@@ -5,7 +5,7 @@ import HomePage from './components/home_page/HomePage';
 import Footer from './components/footer/Footer'
 import CoursePage from './components/course_page/CoursePage';
 import { Routes, Route } from 'react-router-dom';
-import { CoursesContext, CoursesProvider } from './components/CoursesContext';
+import { CoursesProvider } from './components/CoursesContext';
 
 function App() {
 

@@ -1,7 +1,7 @@
 import "./FloatingCard.sass"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { useEffect, useRef } from "react";
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { useEffect } from "react";
 import { useState } from "react";
 
 export default function FloatingCard({ courseData, landingRef }) {
@@ -12,27 +12,29 @@ export default function FloatingCard({ courseData, landingRef }) {
         const [entry] = entries;
         setIsVisible(entry.isIntersecting)
     }
-    const options = ({
-        root: null,
-        rootMargin: "0px",
-        threshold: 0
-    });
-
+    
     useEffect(()=>{
+        
+        const options = ({
+            root: null,
+            rootMargin: "0px",
+            threshold: 0
+        });
+
         const observer = new IntersectionObserver(observerCallBack, options);
         if(landingRef.current) observer.observe(landingRef.current);
+
         return () => {
-            if(landingRef.current){
-                observer.unobserve(landingRef.current);
-            }
+            observer.disconnect();
         }
-    }, [landingRef, options])
+
+    }, [landingRef])
 
     return (
         <div className={"fix-pos col-3 d-none d-lg-block " + (isVisible ? "position-absolute" : "position-fixed")}>
 
             <div className="floating-card">
-                <div idx="course-video" className={"course-video " + (isVisible ? "d-block" : "d-none")}>
+                <div id="course-video" className={"course-video " + (isVisible ? "d-block" : "d-none")}>
                     <iframe className="course-video-iframe" height="280" src="https://www.youtube.com/embed/_uQrJ0TkZlc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </div>
                 <div className="course-add-to-cart">
