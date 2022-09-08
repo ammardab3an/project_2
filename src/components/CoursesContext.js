@@ -25,6 +25,9 @@ export const CoursesProvider = (props) => {
     }, []);
     
     const queryCourse = (courseId) => {
+        
+        // until we update the database with other courses
+        courseId = 394676;
 
         if(courseId in coursesDb){
             if(coursesDb[courseId].fetching){

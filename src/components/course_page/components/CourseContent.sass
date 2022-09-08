@@ -43,15 +43,17 @@
     cursor: pointer
 
 .sections-sum
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
     position: relative
     height: fit-content
     padding: 10px 0
+    font-size: 14px
     .dot::after
         content: " . "
         font-size: 30px
         line-height: 0
 
     .expand-compress-btn
-        position: absolute
-        right: 0
         

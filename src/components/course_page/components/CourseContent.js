@@ -24,7 +24,7 @@ function CurriculumSection({idx, expand, sectionData}){
                     {sectionData.title}
                 </span>
 
-                <span className="section-header-info">{sectionData.lecture_count} {sectionData.lecture_count>1 ? "lectures" : "lecture"} . {sectionData.content_length_text}</span>
+                <span className="section-header-info d-none d-lg-block">{sectionData.lecture_count} {sectionData.lecture_count>1 ? "lectures" : "lecture"} . {sectionData.content_length_text}</span>
             </div>
 
             {
@@ -69,9 +69,11 @@ export default function CourseContent({sectionsData}){
         <div className="course-content">
 
             <div className="sections-sum">
-                <span className="dot">{sectionsData.sections.length} sections</span>
-                <span className="dot">{sectionsData.num_of_published_lectures} lectures</span>
-                <span>{sectionsData.estimated_content_length_text} total content length</span>
+                <div className="d-none d-lg-inline">
+                    <span className="dot">{sectionsData.sections.length} sections</span>
+                    <span className="dot">{sectionsData.num_of_published_lectures} lectures</span>
+                    <span>{sectionsData.estimated_content_length_text} total content length</span>
+                </div>
                 <span className="show-more-less-desc-btn expand-compress-btn" onClick={()=>set_expand_all(!expand_all)}>{!expand_all ? "Expand all sections" : "Compress all sections"}</span>
             </div>
 
