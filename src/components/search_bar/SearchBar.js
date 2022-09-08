@@ -38,7 +38,7 @@ export default function SearchBar() {
                     <img className="logo" src={udemy_logo} alt="logo" />
                 </Link>
 
-                <a href="/categories" className="nav_link">Categories</a>
+                <Link to="/categories" className="nav_link">Categories</Link>
 
                 <section id="search_bar">
                     <form className="search_form" action="GET">
@@ -49,8 +49,8 @@ export default function SearchBar() {
                     </form>
                 </section>
 
-                <a href="/businesses" className="nav_link">Udemy Businesses</a>
-                <a href="/teach" className="nav_link">Teach on Udemy</a>
+                <Link to="/businesses" className="nav_link">Udemy Businesses</Link>
+                <Link to="/teach" className="nav_link">Teach on Udemy</Link>
 
                 <button className="box_button box_sty">Log in</button>
                 <button className="box_button box_sty box_inv">Sign up</button>
