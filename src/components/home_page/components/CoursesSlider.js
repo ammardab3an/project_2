@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./CoursesSlider.sass";
 import Nav from "react-bootstrap/Nav";
 import Carousel from 'react-bootstrap/Carousel';
 import { Link } from "react-router-dom";
 import Stars from "./Stars"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const CoursesContext = React.createContext({});
 
@@ -63,10 +65,60 @@ function GroupInfo({groupName}) {
     )
 }
 
-function CourseCard({course, cardsPerSlide}) {
+function CoursePopUp({course, display, leftRight}){
+
+    const st = {
+        "display": [display],
+        [leftRight]: "100%"
+    }
 
     return (
-        <div className={`col-${12 / cardsPerSlide}`}>
+        <div className="pop-up" style={st}>
+            <h5 className="pop-up-title">{course.title}</h5>
+            <p className="pop-up-updated">Updated <b>September 2022</b></p>
+            <p className="pop-up-hours">31 total hours . All Levels . Subtitles</p>
+            <p className="pop-up-headline">{course.headline}</p>
+            <div className="pop-up-list">
+                <p><FontAwesomeIcon icon={solid("check")} /> Lorem ipsum dolor sit amet consectetur</p>
+                <p><FontAwesomeIcon icon={solid("check")} /> Lorem ipsum dolor sit amet consectetur</p>
+                <p><FontAwesomeIcon icon={solid("check")} /> Lorem ipsum dolor sit amet consectetur</p>
+                <p><FontAwesomeIcon icon={solid("check")} /> Lorem ipsum dolor sit amet consectetur</p>
+            </div>
+
+            <button className="add-to-cart-btn">Add to cart</button>
+            <div className="favorite d-inline-block">
+                <FontAwesomeIcon icon={regular("heart")} />
+            </div>
+        </div>
+    )
+}
+
+function CourseCard({idx, course, cardsPerSlide}) {
+
+    const courseRef = useRef();
+    const [showPopUp, setShowPopUp] = useState(false);
+
+    useEffect(()=>{
+
+        const handelEnter = ()=>setShowPopUp(true);
+        const handelLeave = ()=>setShowPopUp(false);
+
+        if(courseRef.current){
+            courseRef.current.addEventListener("mouseenter", handelEnter, false);
+            courseRef.current.addEventListener("mouseleave", handelLeave, false);
+        }
+
+        return ()=>{
+            if(courseRef.current){
+                courseRef.current.removeEventListener("mouseenter", handelEnter);
+                courseRef.current.removeEventListener("mouseleave", handelLeave);
+            }
+        }
+
+    }, [courseRef])
+
+    return (
+        <div ref={courseRef} className={`course-card col-${12 / cardsPerSlide}`}>
             
             <Link className={"d-block text-decoration-none"} to={`course_info/${course.id}`}>
                 <figure>
@@ -74,6 +126,8 @@ function CourseCard({course, cardsPerSlide}) {
                     <figcaption className="text-dark">{course.title}</figcaption>
                 </figure>
             </Link>
+            
+            <CoursePopUp course={course} display={showPopUp ? "block" : "none"} leftRight={idx<2 ? "left" : "right"}/>
 
             {
                 course.instructors.map((instructor, idx) =>
@@ -85,11 +139,15 @@ function CourseCard({course, cardsPerSlide}) {
                 <Stars showRating rating={course.rating} />
 
                 <small className="text-muted">
-                    ({Math.floor(Math.random()*10000)})
+                    ({2342*(idx+1)})
                 </small>
             </p>
 
-            <p className="price">${course.price}</p>
+            <p className="price">
+                <span className="fs-5">${course.price}  </span> 
+                <span className="text-decoration-line-through text-secondary fs-6">${Math.floor(course.price * 1.78)+0.99}</span>
+            </p>
+            
         </div>
     )
 }
@@ -116,14 +174,18 @@ function CoursesCarousel({groupName, filterString, cardsPerSlide}) {
     });
 
     return (
-        <Carousel key={filterString} className="courses_carousel" activeIndex={index} onSelect={handelSelect} indicators={false}>
+        <Carousel key={filterString} className="courses_carousel" activeIndex={index} onSelect={handelSelect}
+            nextIcon={<FontAwesomeIcon className="carousel-control" icon={solid("circle-arrow-right")} />}
+            prevIcon={<FontAwesomeIcon className="carousel-control" icon={solid("circle-arrow-left")} />}
+            indicators={true} slide={false}
+        >
             {
                 slides.map((slide, idx) => (
                     <Carousel.Item key={idx} className="carousel-item">
                         <div className="row">
                             {
                                 slide.map((course, idx) => 
-                                    <CourseCard key={idx} course={course} cardsPerSlide={cardsPerSlide} />
+                                    <CourseCard key={idx} idx={idx} course={course} cardsPerSlide={cardsPerSlide} />
                                 )
                             }
                         </div>
