@@ -1,15 +1,16 @@
 import "./CourseContent.sass"
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Row, Col } from "react-bootstrap";
 
 const MAX_SHOWN_SECTIONS = 7;
 
-function CurriculumSection({idx, sectionData}){
+function CurriculumSection({idx, expand, sectionData}){
 
-    const [is_expanded, set_is_expanded] = React.useState(0);
-
+    const [is_expanded, set_is_expanded] = React.useState(false);
+    useEffect(()=>set_is_expanded(expand), [expand]);
+    
     return (
         <div key={idx}>
             <div className="section-header">
@@ -23,7 +24,6 @@ function CurriculumSection({idx, sectionData}){
                     {sectionData.title}
                 </span>
 
-                {/* <span className="section-header-info">{sectionData.lecture_count} {sectionData.lecture_count>1 ? "lectures" : "lecture"} . {Math.round(sectionData.content_length/60)} min</span> */}
                 <span className="section-header-info">{sectionData.lecture_count} {sectionData.lecture_count>1 ? "lectures" : "lecture"} . {sectionData.content_length_text}</span>
             </div>
 
@@ -63,14 +63,23 @@ function CurriculumSection({idx, sectionData}){
 export default function CourseContent({sectionsData}){
 
     const [show_more, set_show_more] = React.useState(0);
+    const [expand_all, set_expand_all] = React.useState(false);
 
     return (
         <div className="course-content">
+
+            <div className="sections-sum">
+                <span className="dot">{sectionsData.sections.length} sections</span>
+                <span className="dot">{sectionsData.num_of_published_lectures} lectures</span>
+                <span>{sectionsData.estimated_content_length_text} total content length</span>
+                <span className="show-more-less-desc-btn expand-compress-btn" onClick={()=>set_expand_all(!expand_all)}>{!expand_all ? "Expand all sections" : "Compress all sections"}</span>
+            </div>
+
             {
-                sectionsData.map((e, idx) => (
+                sectionsData.sections.map((e, idx) => (
 
                     (show_more || idx < MAX_SHOWN_SECTIONS)
-                        ? <CurriculumSection key={idx} sectionData={e} />
+                        ? <CurriculumSection expand={expand_all} key={idx} sectionData={e} />
                         : <></>
                 ))
             }

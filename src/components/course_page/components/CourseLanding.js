@@ -7,12 +7,16 @@ import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 import Stars from "./Stars"
 
-export default function CourseLanding({courseData}){
+export default function CourseLanding({courseData, landingRef}){
 
     return (
-        <div className="course-landing">
+        <div ref={landingRef} className="course-landing">
             
             <Container>
+                
+                <div className="course-landing-video d-block d-lg-none">
+                    <iframe className="course-landing-video-iframe" src="https://www.youtube.com/embed/_uQrJ0TkZlc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                </div>
 
                 <Row>
                     <Col lg={1}/>

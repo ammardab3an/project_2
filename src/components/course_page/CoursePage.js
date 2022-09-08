@@ -13,29 +13,29 @@ import StudentFeedback from "./components/StudentFeedback";
 import Reviews from "./components/Reviews";
 import FloatingCard from "./components/FloatingCard";
 import { CoursesContext } from "../CoursesContext";
-import { useContext } from "react";
+import { useContext , useRef} from "react";
 
 export default function CoursePage(){
 
     const {courseId} = useParams();
     const queryCourse = useContext(CoursesContext).queryCourse;
     const courseDb = queryCourse(courseId);
+    const landingRef = useRef();
 
     return (
             !courseDb 
                 ? <LoadingSpinner />
                 :
                 <>
-                    <CourseLanding courseData={courseDb}/>
-
-                    {/* <FloatingCard courseData={courseDb}/> */}
+                    <CourseLanding landingRef={landingRef} courseData={courseDb}/>
+                    <FloatingCard landingRef={landingRef} courseData={courseDb}/>
 
                     <Container>
                         <Row>
                             <Col lg={1} />
                             <Col xs={12} lg={7}>
                             <WhatToLearn courseData={courseDb} />
-                            <CourseContent sectionsData={courseDb.curriculum_context.data.sections} />
+                            <CourseContent sectionsData={courseDb.curriculum_context.data} />
                             <Requirements requirementsData={courseDb.requirements_data} />
                             <Description description={courseDb.description}/>
                             <Instructors instructorsData={courseDb.visible_instructors} />
