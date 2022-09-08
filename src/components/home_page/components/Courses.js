@@ -4,8 +4,11 @@ import Container from "react-bootstrap/Container";
 import CoursesSlider from "./CoursesSlider";
 import LoadingSpinner from "./LoadingSpinner";
 import { CoursesContext } from "../../CoursesContext";
+import { useContext } from "react";
 
 export default function Courses({filterString}){
+
+    const coursesList = useContext(CoursesContext).coursesList;
 
     return (
 
@@ -16,15 +19,12 @@ export default function Courses({filterString}){
                 <p>Choose from 185,000 online video courses with new additions published every month</p>
             </Container>
             
-            <CoursesContext.Consumer>
-                {
-                    ({coursesList}) => (
-                        coursesList
-                            ? <CoursesSlider filterString={filterString} coursesDb={coursesList}/>
-                            : <LoadingSpinner />
-                    )
-                }       
-            </CoursesContext.Consumer>
+            {
+            coursesList
+                ? <CoursesSlider filterString={filterString} coursesDb={coursesList}/>
+                : <LoadingSpinner />
+            }
+            
         </main>
     )
 }

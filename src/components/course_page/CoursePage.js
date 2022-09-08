@@ -13,47 +13,38 @@ import StudentFeedback from "./components/StudentFeedback";
 import Reviews from "./components/Reviews";
 import FloatingCard from "./components/FloatingCard";
 import { CoursesContext } from "../CoursesContext";
+import { useContext } from "react";
 
 export default function CoursePage(){
 
     const {courseId} = useParams();
-    
+    const queryCourse = useContext(CoursesContext).queryCourse;
+    const courseDb = queryCourse(courseId);
+
     return (
-        <CoursesContext.Consumer>
-            {
-                ({queryCourse}) => {
+            !courseDb 
+                ? <LoadingSpinner />
+                :
+                <>
+                    <CourseLanding courseData={courseDb}/>
 
-                    const courseDb = queryCourse(courseId);
+                    {/* <FloatingCard courseData={courseDb}/> */}
 
-                    if(!courseDb){
-                        return (<LoadingSpinner />);
-                    }
-                    else{
-                        return (
-                            <>
-                                <CourseLanding courseData={courseDb}/>
-                                {/* <FloatingCard courseData={courseDb}/> */}
-            
-                                <Container>
-                                    <Row>
-                                        <Col lg={1} />
-                                        <Col xs={12} lg={7}>
-                                        <WhatToLearn courseData={courseDb} />
-                                        <CourseContent sectionsData={courseDb.curriculum_context.data.sections} />
-                                        <Requirements requirementsData={courseDb.requirements_data} />
-                                        <Description description={courseDb.description}/>
-                                        <Instructors instructorsData={courseDb.visible_instructors} />
-                                        <StudentFeedback courseRating={courseDb.rating} numReviews={courseDb.num_reviews} feedbackData={courseDb.rating_distribution}/>
-                                        <Reviews reviewsData={courseDb.users_reviews} />
-                                        </Col>
-                                        <Col lg={4} />
-                                    </Row>
-                                </Container>
-                            </>
-                        )
-                    }
-                }
-            }
-        </CoursesContext.Consumer>
+                    <Container>
+                        <Row>
+                            <Col lg={1} />
+                            <Col xs={12} lg={7}>
+                            <WhatToLearn courseData={courseDb} />
+                            <CourseContent sectionsData={courseDb.curriculum_context.data.sections} />
+                            <Requirements requirementsData={courseDb.requirements_data} />
+                            <Description description={courseDb.description}/>
+                            <Instructors instructorsData={courseDb.visible_instructors} />
+                            <StudentFeedback courseRating={courseDb.rating} numReviews={courseDb.num_reviews} feedbackData={courseDb.rating_distribution}/>
+                            <Reviews reviewsData={courseDb.users_reviews} />
+                            </Col>
+                            <Col lg={4} />
+                        </Row>
+                    </Container>
+                </>
     )
 }
