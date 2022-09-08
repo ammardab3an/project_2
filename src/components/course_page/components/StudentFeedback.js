@@ -30,10 +30,10 @@ export default function StudentFeedback({courseRating, numReviews, feedbackData}
                     {
                         Object.keys(feedbackData).reverse().map((e, idx) => (
                             <Row key={idx}>
-                                <Col md={7}>
+                                <Col sm={7}>
                                     <Par ratio={100*feedbackData[e].count/numReviews} />
                                 </Col>
-                                <Col md={5}>
+                                <Col sm={5}>
                                     <p className="par-stars"><Stars rating={feedbackData[e].rating}/> {(100*feedbackData[e].count/numReviews).toPrecision(2)}%</p>
                                 </Col>
                             </Row>

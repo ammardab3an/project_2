@@ -31,7 +31,7 @@ export default function FloatingCard({ courseData, landingRef }) {
     }, [landingRef])
 
     return (
-        <div className={"fix-pos col-3 d-none d-lg-block " + (isVisible ? "position-absolute" : "position-fixed")}>
+        <div className={"fix-pos col-xl-3 d-none d-lg-block " + (isVisible ? "position-absolute" : "position-fixed")}>
 
             <div className="floating-card">
                 <div id="course-video" className={"course-video " + (isVisible ? "d-block" : "d-none")}>

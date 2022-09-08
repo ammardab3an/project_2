@@ -36,11 +36,11 @@ function CurriculumSection({expand, sectionData}){
                                 <FontAwesomeIcon icon={solid("circle-play")}/>
                             </Col>
 
-                            <Col xs={8}>
+                            <Col xs={9} sm={7}>
                                 <span>{e.title}</span>
                             </Col>
 
-                            <Col xs={2}>
+                            <Col xs={2} className="d-none d-sm-block">
                                 {
                                     e.can_be_previewed 
                                         ? <span>Preview</span>
@@ -48,7 +48,7 @@ function CurriculumSection({expand, sectionData}){
                                 }
                             </Col>
 
-                            <Col xs={1}>
+                            <Col xs={2}>
                                 <span>{e.content_summary}</span>
                             </Col>
                         </Row>
