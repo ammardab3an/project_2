@@ -2,7 +2,7 @@ import "./Reviews.sass"
 import Stars from "./Stars"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
-import React from "react";
+import React, {useState, useRef} from "react";
 
 const MAX_SHOWN_COMMENTS = 3;
 
@@ -43,13 +43,52 @@ function Review({review}){
 
 export default function Reviews({reviewsData}){
 
-    const [show_more, set_show_more] = React.useState(0);
+    const [show_more, set_show_more] = useState(0);
+    const [search_str, set_search_str] = useState("");
+    const [selected_rating, set_selected_rating] = useState(-1);
+    const freviewsData = reviewsData.filter(e => e.content.toLowerCase().includes(search_str))
+                                    .filter(e => selected_rating===-1 || e.rating===selected_rating);
+    const searchRef = useRef();
+    const searchBtnRef = useRef();
+
+    const handel_search_btn_onClick = (e) => {
+        const search_s = searchRef.current.value.trim().toLowerCase();
+        set_search_str(search_s);
+    }
+
+    const handel_input_keydown = (e) => {
+        if(e.key==="Enter"){
+            e.preventDefault();
+            searchBtnRef.current.click();
+        }
+    }
+
+    const handel_select_rating = (e) => {
+        set_selected_rating(parseInt(e.target.value));
+    }
 
     return (
         <div className="users-reviews">
 
+            <div className="reviews-filter-bar">
+
+                <div className="reviews-search">
+                    <input ref={searchRef} className="search-bar-input" type="text" name="search_text" placeholder="Search in reviews" onKeyDown={handel_input_keydown}/>
+                    <button ref={searchBtnRef} className="search-bar-btn" onClick={handel_search_btn_onClick}><FontAwesomeIcon icon={solid('search')}/></button>
+                </div> 
+
+                <select className="search-rating-selector" onChange={handel_select_rating}>
+                    <option value="-1">All Ratings</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+            </div>
+
             {
-                reviewsData.slice(0, show_more ? reviewsData.length : MAX_SHOWN_COMMENTS).map((e, idx) => (   
+                freviewsData.slice(0, show_more ? freviewsData.length : MAX_SHOWN_COMMENTS).map((e, idx) => (   
                     <Review key={idx} review={e} />
                 ))
             }
