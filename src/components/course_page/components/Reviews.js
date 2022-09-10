@@ -8,6 +8,8 @@ const MAX_SHOWN_COMMENTS = 3;
 
 function Review({review}){
 
+    const [like_dislike, set_like_dislike] = useState(0);
+
     return (
         <div className="user-review">
 
@@ -27,11 +29,11 @@ function Review({review}){
                 <p className="user-comment">{review.content}</p>
                 <p className="was-review-helpful">Was this review helpful?</p>
 
-                <div className="thumbs-btn">
+                <div className={`thumbs-btn ${like_dislike===1 ? "like-dislike-active" : ""}`} onClick={()=>set_like_dislike((like_dislike!==1) ? 1 : 0)}>
                     <FontAwesomeIcon icon={regular("thumbs-up")} />
                 </div>
 
-                <div className="thumbs-btn">
+                <div className={`thumbs-btn ${like_dislike===2 ? "like-dislike-active" : ""}`} onClick={()=>set_like_dislike((like_dislike!==2) ? 2 : 0)}>
                     <FontAwesomeIcon icon={regular("thumbs-down")} style={{transform: "scale(-1, 1)"}} />
                 </div>
 

@@ -93,7 +93,7 @@ function CoursePopUp({course, display, leftRight}){
     )
 }
 
-function CourseCard({idx, course, cardsPerSlide}) {
+function CourseCard({idx, leftRight, course, cardsPerSlide}) {
 
     const courseRef = useRef();
     const [showPopUp, setShowPopUp] = useState(false);
@@ -127,7 +127,7 @@ function CourseCard({idx, course, cardsPerSlide}) {
                 </figure>
             </Link>
             
-            <CoursePopUp course={course} display={showPopUp ? "block" : "none"} leftRight={idx<2 ? "left" : "right"}/>
+            <CoursePopUp course={course} display={showPopUp ? "block" : "none"} leftRight={leftRight}/>
 
             {
                 course.instructors.map((instructor, idx) =>
@@ -185,7 +185,7 @@ function CoursesCarousel({groupName, filterString, cardsPerSlide}) {
                         <div className="row">
                             {
                                 slide.map((course, idx) => 
-                                    <CourseCard key={idx} idx={idx} course={course} cardsPerSlide={cardsPerSlide} />
+                                    <CourseCard key={idx} idx={idx} leftRight={idx<(slide.length/2) ? "left" : "right"} course={course} cardsPerSlide={cardsPerSlide} />
                                 )
                             }
                         </div>

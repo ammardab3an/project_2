@@ -58,7 +58,7 @@ export default function FloatingCard({ courseData, landingRef }) {
                         <p>
                             <FontAwesomeIcon icon={solid("desktop")} />
                             {courseData.content_info_short}
-                            <span> -on-demand video</span>
+                            <span>-on-demand video</span>
                         </p>
                         <p>
                             <FontAwesomeIcon icon={solid("file")} />

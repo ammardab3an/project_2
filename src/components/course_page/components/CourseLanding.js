@@ -39,6 +39,20 @@ export default function CourseLanding({courseData, landingRef}){
                             <span className="m-2"><FontAwesomeIcon icon={solid("closed-captioning")}/> {courseData.caption_languages[0]}</span>
                         </p>
 
+                        <div className="d-block d-lg-none">
+
+                            <div className="buy-btns">
+                                <button className="add-to-cart-btn">Add to cart</button>
+                                <button className="buy-now-btn">Buy now</button>
+                            </div>
+
+                            <div className="share-gift-coupons">
+                                <span className="text-decoration-underline text-weight-bold">Share</span>
+                                <span className="text-decoration-underline text-weight-bold">Gift this course</span>
+                                <span className="text-decoration-underline text-weight-bold">Apply coupon</span>
+                            </div>
+                        </div>
+
                     </Col>
                     
                     <Col lg={4} />
