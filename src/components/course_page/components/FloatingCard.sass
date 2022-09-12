@@ -1,0 +1,77 @@
+.position-fixed
+    position: fixed
+    animation: fadein 1s
+
+.fix-pos
+    top: 100px
+    left: calc((100% / 12) * (8))
+
+.floating-card
+    border: solid 1px white
+    box-shadow: 0px 2px 20px grey
+    background-color: white
+
+.course-video
+    width: 100%
+    height: 0
+    padding-top: 56.25%
+    position: relative
+    .course-video-iframe
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        right: 0
+        left: 0
+        bottom: 0
+
+.course-add-to-cart
+    padding: 30px 20px
+
+    .course-current-price
+
+        display: flex
+        flex-flow: row nowrap
+
+        span
+            height: fit-content
+            align-self: center
+            margin-right: 10px
+
+    button
+        display: block
+        width: 80%
+        margin: 10px auto
+        height: 50px
+        font-weight: bolder
+
+    .add-to-cart-btn
+        color: white
+        background-color: #a435f0
+        border-color: white
+
+    .buy-now-btn
+        color: black
+        background-color: white
+
+    .money-back
+        text-align: center
+
+    .course-includes
+
+        padding: 0 20px
+        font-size: 12px
+        p
+            margin: 5px 0
+
+            svg
+                width: 20px
+                margin-right: 7px
+
+    .share-gift-coupons
+        display: flex
+        flex-flow: row nowrap
+        justify-content: space-around
+        margin: 20px 0
+    .share-gift-coupons:hover
+        cursor: pointer

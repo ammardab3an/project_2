@@ -53,24 +53,80 @@
         font-weight: 400
         font-size: 12px
 
-    & .stars
-        color: yellowgreen
+.course-card
+    position: relative
+
+.pop-up
+    position: absolute
+    top: -20%
+    width: 130%
+    background-color: white
+    border: solid 1px gray
+    padding: 20px
+    border-radius: 4px
+    line-height: 1.2
+    visibility: visible
+    overflow: visible
+    z-index: 1
+    animation: fadein 0.2s
+
+    $small-screen-max-width: 575px
+    @media (max-width: $small-screen-max-width)
+        display: none !important
+        
+    .pop-up-title
+
+
+    .pop-up-updated
+        color: darkgreen
+        font-size: 14px
+
+    .pop-up-hours
         font-size: 12px
-        margin-left: auto
-        margin-right: auto
+        color: gray
+
+    .pop-up-headline
+
+
+    .pop-up-list
+        p
+            margin-bottom: 5px
+        svg
+            margin-right: 5px
+
+    .add-to-cart-btn
+        color: white
+        background-color: #a435f0
+        border-color: white
+        width: 80%
+        height: 40px
+    
+    .favorite
+        font-size: 22px
+        border: solid 2px black
         text-align: center
+        width: 40px
+        height: 40px
+        padding: 5px
+        border-radius: 50%
+        margin-left: calc(20% - 40px)
 
-    & .price
-        padding-left: 10px
-        margin: 5px
+    .favorite:hover
+        cursor: pointer
+    
+.courses_carousel
+    .carousel-inner
+        overflow: visible !important
 
-.carousel-control-next,
-.carousel-control-prev
-    background-color: rgb(0, 0, 0, 15%) !important
-    width: 8%
+    .carousel-control
+        font-size: 40px
+        color: black
 
-.carousel-control-prev-icon
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important
+    .carousel-control-prev, 
+    .carousel-control-next
+        width: 60px
 
-.carousel-control-next-icon
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important
+    .carousel-indicators
+        button
+            height: 5px
+            background-color: gray

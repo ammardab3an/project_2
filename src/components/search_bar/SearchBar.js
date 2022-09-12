@@ -3,15 +3,23 @@ import React from "react";
 import udemy_logo from "./media/logo-udemy.svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { createSearchParams } from "react-router-dom";
 
-export default function SearchBar({filterStringSetter}) {
+export default function SearchBar() {
 
+    const navigate = useNavigate();
     const search_submit_btn_ref = React.createRef();
     const search_input_ref = React.createRef();
 
     const handel_search_btn_onClick = (e) => {
         e.preventDefault();
-        filterStringSetter(search_input_ref.current.value.trim().toLowerCase());
+        const search_s = search_input_ref.current.value.trim().toLowerCase();
+
+        navigate({
+            pathname: "/",
+            search: search_s.length ? `?${createSearchParams({search: search_s})}` : ""
+        })
     }
     
     const handel_input_keydown = (e) => {
@@ -25,9 +33,12 @@ export default function SearchBar({filterStringSetter}) {
         <header>
 
             <nav>
-                <img className="logo" src={udemy_logo} alt="logo" />
 
-                <a href="/categories" className="nav_link">Categories</a>
+                <Link to="/" style={{"marginTop": "auto", "marginBottom": "auto"}}>
+                    <img className="logo" src={udemy_logo} alt="logo" />
+                </Link>
+
+                <Link to="/categories" className="nav_link">Categories</Link>
 
                 <section id="search_bar">
                     <form className="search_form" action="GET">
@@ -38,8 +49,8 @@ export default function SearchBar({filterStringSetter}) {
                     </form>
                 </section>
 
-                <a href="/businesses" className="nav_link">Udemy Businesses</a>
-                <a href="/teach" className="nav_link">Teach on Udemy</a>
+                <Link to="/businesses" className="nav_link">Udemy Businesses</Link>
+                <Link to="/teach" className="nav_link">Teach on Udemy</Link>
 
                 <button className="box_button box_sty">Log in</button>
                 <button className="box_button box_sty box_inv">Sign up</button>

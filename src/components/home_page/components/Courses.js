@@ -3,20 +3,12 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import CoursesSlider from "./CoursesSlider";
 import LoadingSpinner from "./LoadingSpinner";
+import { CoursesContext } from "../../CoursesContext";
+import { useContext } from "react";
 
 export default function Courses({filterString}){
 
-    const [data_is_fetched, set_data_is_fetched] = React.useState(false);
-    const [courses_db, set_courses_db] = React.useState({});
-    
-    React.useEffect(()=>{
-        fetch("https://api.jsonbin.io/v3/b/6314926fe13e6063dc9a99c0")
-            .then((res) => res.json())
-            .then((res) => {
-                set_courses_db(res.record);
-                set_data_is_fetched(true);
-            });
-    }, []);
+    const coursesList = useContext(CoursesContext).coursesList;
 
     return (
 
@@ -28,10 +20,11 @@ export default function Courses({filterString}){
             </Container>
             
             {
-                data_is_fetched
-                    ? <CoursesSlider filterString={filterString} coursesDb={courses_db}/>
-                    : <LoadingSpinner />
-            }       
+            coursesList
+                ? <CoursesSlider filterString={filterString} coursesDb={coursesList}/>
+                : <LoadingSpinner />
+            }
+            
         </main>
     )
 }
