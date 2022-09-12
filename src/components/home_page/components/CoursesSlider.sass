@@ -60,7 +60,6 @@
     position: absolute
     top: -20%
     width: 130%
-    z-index: 1
     background-color: white
     border: solid 1px gray
     padding: 20px
@@ -68,8 +67,13 @@
     line-height: 1.2
     visibility: visible
     overflow: visible
-    z-index: 100
-    
+    z-index: 1
+    animation: fadein 0.2s
+
+    $small-screen-max-width: 575px
+    @media (max-width: $small-screen-max-width)
+        display: none !important
+        
     .pop-up-title
 
 
@@ -109,7 +113,7 @@
 
     .favorite:hover
         cursor: pointer
-
+    
 .courses_carousel
     .carousel-inner
         overflow: visible !important
