@@ -203,9 +203,9 @@ function CoursesSlider({filterString, coursesDb}) {
     const [cards_per_slide, set_cards_per_slide] = React.useState(calc_cards_per_slide_value());
     
     React.useEffect(() => {
-        window.addEventListener("resize", (e) => {
-            set_cards_per_slide(calc_cards_per_slide_value());
-        });
+        const handelWindowResize = () => set_cards_per_slide(calc_cards_per_slide_value());
+        window.addEventListener("resize", handelWindowResize, false);
+        return () => window.removeEventListener("resize", handelWindowResize);
     }, []);
 
     return (
